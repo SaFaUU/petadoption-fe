@@ -13,8 +13,20 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import logo from "../../../../assets/logo.png";
+import Image from "next/image";
+import Link from "next/link";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = [
+  {
+    title: "Home",
+    path: "/",
+  },
+  {
+    title: "About Us",
+    path: "/about-us",
+  },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function NavigationBar() {
@@ -41,27 +53,14 @@ function NavigationBar() {
   };
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
+    <AppBar position="sticky" color="transparent" sx={{ boxShadow: "none" }}>
+      <Container maxWidth="lg">
+        <Toolbar disableGutters style={{ height: "80px", boxShadow: "none" }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
+            <Link href={`/`}>
+              <Image src={logo} alt="logo" width={120} height={120} />
+            </Link>
+          </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -93,46 +92,46 @@ function NavigationBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
+          <Box
             sx={{
-              mr: 2,
               display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              mr: 1,
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            LOGO
-          </Typography>
+            <Link href={`/`}>
+              <Image src={logo} alt="logo" width={120} height={120} />
+            </Link>
+          </Box>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
               justifyContent: "center",
+              gap: "20px",
             }}
           >
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+              <Link
+                key={page.title}
+                href={page.path}
+                style={{
+                  textDecoration: "none",
+                  gap: "10px",
+                  color: "black",
+                  fontWeight: "bold",
+                }}
               >
-                {page}
-              </Button>
+                {page.title}
+              </Link>
             ))}
           </Box>
 
