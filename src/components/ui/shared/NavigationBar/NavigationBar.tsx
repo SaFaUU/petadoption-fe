@@ -53,12 +53,42 @@ function NavigationBar() {
   };
 
   return (
-    <AppBar position="sticky" color="transparent" sx={{ boxShadow: "none" }}>
+    <AppBar
+      position="sticky"
+      color="transparent"
+      sx={{
+        boxShadow: "none",
+        // backgroundColor: "white"
+      }}
+    >
       <Container maxWidth="lg">
         <Toolbar disableGutters style={{ height: "80px", boxShadow: "none" }}>
           <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}>
-            <Link href={`/`}>
-              <Image src={logo} alt="logo" width={120} height={120} />
+            <Link
+              href={`/`}
+              style={{
+                textDecoration: "none",
+                display: "flex",
+                // gap: "5px",
+                alignItems: "center",
+              }}
+            >
+              <Image src={logo} alt="logo" width={90} height={90} />
+              {/* <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                PETADOPTION
+              </Typography> */}
             </Link>
           </Box>
 
@@ -103,20 +133,21 @@ function NavigationBar() {
               display: { xs: "flex", md: "none" },
               mr: 1,
               width: "100%",
-              justifyContent: "center",
+              justifyContent: "flex-end",
               alignItems: "center",
             }}
           >
             <Link href={`/`}>
-              <Image src={logo} alt="logo" width={120} height={120} />
+              <Image src={logo} alt="logo" width={80} height={80} />
             </Link>
           </Box>
           <Box
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
-              justifyContent: "center",
+              justifyContent: "flex-end",
               gap: "20px",
+              marginRight: "40px",
             }}
           >
             {pages.map((page) => (
@@ -135,7 +166,28 @@ function NavigationBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1, gap: "10px" }}>
+            <Link href="/signin" style={{ textDecoration: "none" }}>
+              <Button
+                variant="outlined"
+                size="small"
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  borderColor: "primary.main",
+                  color: "black",
+                  "&:hover": {
+                    backgroundColor: "primary.main",
+                    color: "white",
+                    opacity: [0.8],
+                  },
+                }}
+              >
+                Sign In
+              </Button>
+            </Link>
+          </Box>
+
+          {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -163,7 +215,7 @@ function NavigationBar() {
                 </MenuItem>
               ))}
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
