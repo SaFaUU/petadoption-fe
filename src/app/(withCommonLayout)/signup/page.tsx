@@ -16,7 +16,7 @@ interface IFormInput {
   password: String;
 }
 
-const signin = () => {
+const SignUp = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
 
@@ -45,10 +45,17 @@ const signin = () => {
           fontWeight={"bold"}
           mb={2}
         >
-          SIGN IN
+          SIGN UP
         </Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack direction="column" spacing={2}>
+            <TextField
+              id="outlined-basic"
+              label="Full Name"
+              variant="outlined"
+              {...register("userName")}
+              type="text"
+            />
             <TextField
               id="outlined-basic"
               label="Email"
@@ -63,6 +70,13 @@ const signin = () => {
               {...register("password")}
               type="password"
             />
+            <TextField
+              id="outlined-basic"
+              label="Confirm Password"
+              variant="outlined"
+              {...register("confirmPassword")}
+              type="password"
+            />
             <Button type="submit">Sign In</Button>
             <Typography
               variant="body2"
@@ -73,12 +87,12 @@ const signin = () => {
                 fontWeight: "bold",
               }}
             >
-              Don't have an account?{" "}
+              Already have an account?{" "}
               <Link
-                href="/signup"
+                href="/signin"
                 style={{ textDecoration: "none", color: "#FF6500" }}
               >
-                Sign Up
+                Sign In
               </Link>
             </Typography>
           </Stack>
@@ -88,4 +102,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default SignUp;
