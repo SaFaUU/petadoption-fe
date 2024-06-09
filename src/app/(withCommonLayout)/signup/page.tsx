@@ -14,6 +14,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 interface IFormInput {
   email: String;
   password: String;
+  userName: String;
+  confirmPassword: String;
 }
 
 const SignUp = () => {
@@ -77,7 +79,7 @@ const SignUp = () => {
               {...register("confirmPassword")}
               type="password"
             />
-            <Button type="submit">Sign In</Button>
+            <Button type="submit">Sign Up</Button>
             <Typography
               variant="body2"
               textAlign={"right"}
