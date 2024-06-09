@@ -16,6 +16,8 @@ import AdbIcon from "@mui/icons-material/Adb";
 import logo from "../../../../assets/logo.png";
 import Image from "next/image";
 import Link from "next/link";
+import "./NavigationBar.css";
+import { usePathname, useRouter } from "next/navigation";
 
 const pages = [
   {
@@ -25,6 +27,10 @@ const pages = [
   {
     title: "About Us",
     path: "/about-us",
+  },
+  {
+    title: "Get a Pet",
+    path: "/get-a-pet",
   },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -51,6 +57,10 @@ function NavigationBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const router = useRouter();
+  const pathName = usePathname();
+  console.log(pathName);
 
   return (
     <AppBar
@@ -160,6 +170,9 @@ function NavigationBar() {
                   color: "black",
                   fontWeight: "bold",
                 }}
+                className={`navLinkTag ${
+                  pathName === page.path ? "active" : ""
+                }`}
               >
                 {page.title}
               </Link>

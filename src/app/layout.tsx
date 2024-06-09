@@ -21,7 +21,7 @@ export default function RootLayout({
         <body
           className={inter.className}
           suppressHydrationWarning
-          color="paper"
+          color="white"
         >
           {children}
         </body>

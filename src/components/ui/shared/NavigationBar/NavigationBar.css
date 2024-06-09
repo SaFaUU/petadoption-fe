@@ -1,0 +1,45 @@
+/* a:hover {
+    text-decoration: none;
+    border-bottom: 2px solid black;
+    transition: 1.5s;
+    color: black;
+} */
+
+
+a {
+    display: inline-block;
+    position: relative;
+    color: #FF6500;
+}
+
+.navLinkTag:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: #FF6500;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.navLinkTag.active:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(1);
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    color: "black";
+    background-color: #FF6500;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+a:not(:has(button, img)):hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
