@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import "./NavigationBar.css";
 import { usePathname, useRouter } from "next/navigation";
+import { useSession, signOut } from "next-auth/react";
 
 const pages = [
   {
@@ -33,9 +34,20 @@ const pages = [
     path: "/get-a-pet",
   },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  {
+    title: "Profile",
+    path: "/profile",
+  },
+  {
+    title: "Dashboard",
+    path: "/dashboard",
+  },
+];
 
 function NavigationBar() {
+  const session = useSession();
+  console.log(session);
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -179,56 +191,68 @@ function NavigationBar() {
             ))}
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" }, mr: 1, gap: "10px" }}>
-            <Link href="/signin" style={{ textDecoration: "none" }}>
-              <Button
-                variant="outlined"
-                size="small"
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  borderColor: "primary.main",
-                  color: "black",
-                  "&:hover": {
-                    backgroundColor: "primary.main",
-                    color: "white",
-                    opacity: [0.8],
-                  },
+          {session?.data?.user ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
                 }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
               >
-                Sign In
-              </Button>
-            </Link>
-          </Box>
-
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                {settings.map((setting, index) => (
+                  <MenuItem key={index} onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting.title}</Typography>
+                  </MenuItem>
+                ))}
+                <MenuItem
+                  onClick={() => {
+                    handleCloseUserMenu();
+                    signOut();
+                  }}
+                >
+                  <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
+              </Menu>
+            </Box>
+          ) : (
+            <Box
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1, gap: "10px" }}
+            >
+              <Link href="/signin" style={{ textDecoration: "none" }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    display: { xs: "none", md: "flex" },
+                    borderColor: "primary.main",
+                    color: "black",
+                    "&:hover": {
+                      backgroundColor: "primary.main",
+                      color: "white",
+                      opacity: [0.8],
+                    },
+                  }}
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

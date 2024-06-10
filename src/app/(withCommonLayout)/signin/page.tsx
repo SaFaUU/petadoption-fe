@@ -7,9 +7,11 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
   email: String;
@@ -18,7 +20,18 @@ interface IFormInput {
 
 const signin = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const router = useRouter();
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    console.log(data);
+    const res = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+    if (res?.status === 200) {
+      router.push("/");
+    }
+  };
 
   return (
     <Container

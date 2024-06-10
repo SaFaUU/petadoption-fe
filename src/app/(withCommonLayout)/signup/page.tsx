@@ -1,4 +1,5 @@
 "use client";
+import { env } from "@/config";
 import {
   Box,
   Container,
@@ -10,17 +11,43 @@ import {
 import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 interface IFormInput {
   email: String;
   password: String;
-  userName: String;
+  name: String;
   confirmPassword: String;
 }
 
 const SignUp = () => {
+  const router = useRouter();
   const { register, handleSubmit } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    const user = await fetch(`${env.server_url}/api/register`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+        name: data.name,
+      }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    if (user.ok) {
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (res.ok) {
+        router.push("/");
+      }
+    }
+  };
 
   return (
     <Container
@@ -55,7 +82,7 @@ const SignUp = () => {
               id="outlined-basic"
               label="Full Name"
               variant="outlined"
-              {...register("userName")}
+              {...register("name")}
               type="text"
             />
             <TextField
