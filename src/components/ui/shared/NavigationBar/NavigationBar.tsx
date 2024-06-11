@@ -47,7 +47,8 @@ const settings = [
 
 function NavigationBar() {
   const session = useSession();
-  console.log(session);
+  const role = session.data?.user?.role;
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
@@ -72,7 +73,6 @@ function NavigationBar() {
 
   const router = useRouter();
   const pathName = usePathname();
-  console.log(pathName);
 
   return (
     <AppBar
@@ -216,7 +216,18 @@ function NavigationBar() {
               >
                 {settings.map((setting, index) => (
                   <MenuItem key={index} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting.title}</Typography>
+                    <Link
+                      href={`${setting.path}/${
+                        role ? role?.toLowerCase() : "user"
+                      }`}
+                      style={{
+                        textAlign: "center",
+                        textDecoration: "none",
+                        color: "black",
+                      }}
+                    >
+                      {setting.title}
+                    </Link>
                   </MenuItem>
                 ))}
                 <MenuItem
