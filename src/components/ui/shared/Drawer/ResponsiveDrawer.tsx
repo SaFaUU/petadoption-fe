@@ -16,6 +16,10 @@ import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { drawerItems } from "@/constants/drawerItem";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -24,6 +28,8 @@ export default function ResponsiveDrawer({
 }: {
   children: React.ReactNode;
 }) {
+  const session: any = useSession();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
@@ -47,30 +53,32 @@ export default function ResponsiveDrawer({
       <Toolbar />
       <Divider />
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
+        {drawerItems(session.data?.user?.role).map((item, index) => (
+          <Link
+            href={item.path}
+            key={index}
+            style={{
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            <ListItem
+              disablePadding
+              sx={{
+                borderRight: `${
+                  pathname === item.path ? "3px solid #FF6500" : "none"
+                }`,
+              }}
+            >
+              <ListItemButton>
+                <ListItemIcon>{item.icon && <item.icon />}</ListItemIcon>
+                <ListItemText primary={item.title} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
         ))}
       </List>
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
     </div>
   );
 
