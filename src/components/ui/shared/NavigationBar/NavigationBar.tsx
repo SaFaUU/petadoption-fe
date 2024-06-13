@@ -80,7 +80,7 @@ function NavigationBar() {
       color="transparent"
       sx={{
         boxShadow: "none",
-        // backgroundColor: "white"
+        backgroundColor: "white",
       }}
     >
       <Container maxWidth="lg">
