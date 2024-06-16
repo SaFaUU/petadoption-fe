@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const WhyAdopt = () => {
   return (
-    <Box sx={{ backgroundColor: "white", p: 2, borderRadius: "10px", my: 2 }}>
+    <Box sx={{ backgroundColor: "white", p: 2, borderRadius: "15px", my: 2 }}>
       <Container sx={{ my: 5 }}>
         <Grid
           container
@@ -16,7 +16,7 @@ const WhyAdopt = () => {
         >
           <Grid item xs={12} sm={6}>
             <Typography
-              variant="h3"
+              variant="h4"
               sx={{
                 fontWeight: "bold",
                 color: "text.primary",

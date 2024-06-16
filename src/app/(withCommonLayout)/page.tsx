@@ -1,4 +1,6 @@
+import AdoptionProcess from "@/components/ui/Homepage/AdoptionProcess/AdoptionProcess";
 import Heroslider from "@/components/ui/Homepage/Heroslider/Heroslider";
+import HowYouCanHelp from "@/components/ui/Homepage/HowYouCanHelp/HowYouCanHelp";
 import WelcomeSection from "@/components/ui/Homepage/WelcomeSection/WelcomeSection";
 import WhyAdopt from "@/components/ui/Homepage/WhyAdopt/WhyAdopt";
 import NavigationBar from "@/components/ui/shared/NavigationBar/NavigationBar";
@@ -11,6 +13,8 @@ const HomePage = () => {
       <Heroslider />
       <WelcomeSection />
       <WhyAdopt />
+      <AdoptionProcess />
+      {/* <HowYouCanHelp /> */}
     </Container>
   );
 };
