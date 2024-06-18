@@ -20,6 +20,8 @@ import { drawerItems } from "@/constants/drawerItem";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import logo from "@/assets/logo.png";
+import Image from "next/image";
 
 const drawerWidth = 240;
 
@@ -50,7 +52,29 @@ export default function ResponsiveDrawer({
 
   const drawer = (
     <div>
-      <Toolbar />
+      {/* <Toolbar /> */}
+      <Link
+        href={"/"}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Image
+            src={logo}
+            alt="logo"
+            width={100}
+            height={100}
+            style={{
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
+            }}
+          />
+        </Box>
+      </Link>
       <Divider />
       <List>
         {drawerItems(session.data?.user?.role).map((item, index) => (
@@ -60,6 +84,7 @@ export default function ResponsiveDrawer({
             style={{
               textDecoration: "none",
               color: "black",
+              width: "100%",
             }}
           >
             <ListItem
@@ -90,6 +115,7 @@ export default function ResponsiveDrawer({
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          display: { sm: "none", xs: "block" },
         }}
       >
         <Toolbar>
@@ -154,7 +180,7 @@ export default function ResponsiveDrawer({
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
       >
-        <Toolbar />
+        <Toolbar sx={{ display: { sm: "none", xs: "block" } }} />
         {children}
       </Box>
     </Box>

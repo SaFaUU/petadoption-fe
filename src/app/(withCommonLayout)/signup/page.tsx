@@ -25,7 +25,7 @@ const SignUp = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm<IFormInput>();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    const user = await fetch(`${env.server_url}/api/register`, {
+    const user = await fetch(`${env.server_url}/register`, {
       method: "POST",
       body: JSON.stringify({
         email: data.email,

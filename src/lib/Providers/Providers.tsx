@@ -5,13 +5,14 @@ import { theme } from "../theme/theme";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
 const Providers = ({
   children,
   session,
 }: {
   children: React.ReactNode;
-  session: any;
+  session?: any;
 }) => {
   return (
     <>

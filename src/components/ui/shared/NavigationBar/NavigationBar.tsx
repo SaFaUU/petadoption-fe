@@ -37,7 +37,7 @@ const pages = [
 const settings = [
   {
     title: "Profile",
-    path: "/profile",
+    path: "/dashboard/profile",
   },
   {
     title: "Dashboard",

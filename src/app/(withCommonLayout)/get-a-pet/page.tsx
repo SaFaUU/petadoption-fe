@@ -1,4 +1,5 @@
 "use client";
+import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import {
   Box,
   Button,
@@ -13,6 +14,9 @@ import React from "react";
 
 const GetAPet = () => {
   const [age, setAge] = React.useState("");
+
+  const { data } = useGetAllPetsQuery({});
+  console.log(data);
 
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value);
