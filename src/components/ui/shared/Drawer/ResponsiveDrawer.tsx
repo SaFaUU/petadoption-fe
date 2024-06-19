@@ -91,7 +91,7 @@ export default function ResponsiveDrawer({
               disablePadding
               sx={{
                 borderRight: `${
-                  pathname === item.path ? "3px solid #FF6500" : "none"
+                  pathname.includes(item.path) ? "3px solid #FF6500" : "none"
                 }`,
               }}
             >

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Container,
   Box,
@@ -26,6 +26,7 @@ type Inputs = {
 };
 
 const Profile = () => {
+  const [userState, setUserState] = React.useState<any>({});
   const { data: userInfo } = useGetProfileQuery({});
   console.log(userInfo?.data);
 
@@ -38,8 +39,15 @@ const Profile = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
+
+  useEffect(() => {
+    setUserState(userInfo?.data);
+    reset(userInfo?.data);
+  }, [userInfo?.data]);
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const userData = {
       id: user.id,
@@ -86,7 +94,7 @@ const Profile = () => {
             id="outlined-basic"
             label="ID"
             variant="outlined"
-            defaultValue={user?.id}
+            defaultValue={userState?.id}
             fullWidth
             disabled
             key={user?.id}
@@ -96,7 +104,7 @@ const Profile = () => {
             id="outlined-basic"
             label="Name"
             variant="outlined"
-            defaultValue={user?.name}
+            defaultValue={userState?.name}
             fullWidth
             key={user?.name}
             {...register("name")}
@@ -105,7 +113,7 @@ const Profile = () => {
             id="outlined-basic"
             label="Email"
             variant="outlined"
-            defaultValue={user?.email}
+            defaultValue={userState?.email}
             fullWidth
             key={user?.email}
             {...register("email")}

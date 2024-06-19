@@ -19,7 +19,7 @@ export const drawerItems = (role: string): DrawerItem[] => {
   const defaultMenus = [
     {
       title: "My Profile",
-      path: `/dashboard/profile`,
+      path: `/dashboard/profile/${role && role.toLowerCase()}`,
       icon: Person2Icon,
     },
     {
