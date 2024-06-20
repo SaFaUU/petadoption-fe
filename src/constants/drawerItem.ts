@@ -51,5 +51,5 @@ export const drawerItems = (role: string): DrawerItem[] => {
       break;
   }
 
-  return [...defaultMenus, ...roleMenu];
+  return [...roleMenu, ...defaultMenus];
 };

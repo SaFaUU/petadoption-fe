@@ -42,6 +42,26 @@ export const userApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.profile],
     }),
+    changeRole: builder.mutation({
+      query: (credentials) => {
+        return {
+          url: "/change-role",
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          data: credentials,
+        };
+      },
+    }),
+    changeStatus: builder.mutation({
+      query: (credentials) => {
+        return {
+          url: "/change-status",
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          data: credentials,
+        };
+      },
+    }),
   }),
 });
 
@@ -51,4 +71,6 @@ export const {
   useUpdateProfileMutation,
   useChangePasswordMutation,
   useGetAllUsersQuery,
+  useChangeRoleMutation,
+  useChangeStatusMutation,
 } = userApi;

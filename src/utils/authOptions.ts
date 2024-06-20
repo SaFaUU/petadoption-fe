@@ -27,11 +27,9 @@ export const authOptions: NextAuthOptions = {
           credentials: "include",
         });
         const user = await res.json();
-
         // If no error and we have user data, return it
         if (res.ok && user) {
           //
-
           return user.data;
         }
         // Return null if user data could not be retrieved

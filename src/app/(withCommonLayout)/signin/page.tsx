@@ -12,6 +12,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface IFormInput {
   email: String;
@@ -29,7 +30,11 @@ const signin = () => {
       redirect: false,
     });
     if (res?.status === 200) {
+      toast.success("Logged in successfully");
       router.push("/");
+    } else {
+      console.log(res);
+      toast.error("Something went wrong");
     }
   };
 
