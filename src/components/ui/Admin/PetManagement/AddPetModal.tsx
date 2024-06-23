@@ -9,6 +9,19 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Select, MenuItem, Box, InputLabel, Stack } from "@mui/material";
 import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 import { styled } from "@mui/system";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+
+const VisuallyHiddenInput = styled("input")({
+  clip: "rect(0 0 0 0)",
+  clipPath: "inset(50%)",
+  height: 1,
+  overflow: "hidden",
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  whiteSpace: "nowrap",
+  width: 1,
+});
 
 export default function AddPetModal() {
   const [open, setOpen] = React.useState(false);
@@ -140,53 +153,35 @@ export default function AddPetModal() {
               fullWidth
               variant="outlined"
             />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="age"
-              name="age"
-              label="Age"
-              type="number"
-              fullWidth
-              variant="outlined"
-            />
+            <Stack direction="row" gap={2}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="age"
+                name="age"
+                label="Age"
+                type="number"
+                fullWidth
+                variant="outlined"
+              />
 
-            <TextField
-              autoFocus
-              margin="dense"
-              id="location"
-              name="location"
-              label="Location"
-              type="text"
-              fullWidth
-              variant="outlined"
-            />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="location"
+                name="location"
+                label="Location"
+                type="text"
+                fullWidth
+                variant="outlined"
+              />
+            </Stack>
             <TextField
               autoFocus
               margin="dense"
               id="description"
               name="description"
               label="Description"
-              type="text"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="temperament"
-              name="temperament"
-              label="Temperament"
-              type="text"
-              fullWidth
-              variant="outlined"
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              id="medicalHistory"
-              name="medicalHistory"
-              label="Medical History"
               type="text"
               fullWidth
               variant="outlined"
@@ -201,6 +196,38 @@ export default function AddPetModal() {
               fullWidth
               variant="outlined"
             />
+            <Stack direction="row" gap={2}>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="temperament"
+                name="temperament"
+                label="Temperament"
+                type="text"
+                fullWidth
+                variant="outlined"
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="medicalHistory"
+                name="medicalHistory"
+                label="Medical History"
+                type="text"
+                fullWidth
+                variant="outlined"
+              />
+            </Stack>
+            <Button
+              component="label"
+              role={undefined}
+              variant="contained"
+              tabIndex={-1}
+              startIcon={<CloudUploadIcon />}
+            >
+              Upload file
+              <VisuallyHiddenInput type="file" />
+            </Button>
           </Box>
         </DialogContent>
         <DialogActions>
