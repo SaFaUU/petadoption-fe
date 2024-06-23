@@ -8,7 +8,14 @@ export const petApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    addPet: build.mutation({
+      query: (pet) => ({
+        url: "/pets",
+        method: "POST",
+        data: pet,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllPetsQuery } = petApi;
+export const { useGetAllPetsQuery, useAddPetMutation } = petApi;
