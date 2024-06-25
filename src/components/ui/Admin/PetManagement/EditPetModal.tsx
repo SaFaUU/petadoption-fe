@@ -27,10 +27,8 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
-export default function AddPetModal() {
+export default function EditPetModal({ pet }: any) {
   const [open, setOpen] = React.useState(false);
-  const [isDisabled, setIsDisabled] = React.useState(false);
-  const [uploadImage] = useUploadImageMutation();
   const [addPet] = useAddPetMutation();
 
   const handleClickOpen = () => {
@@ -46,42 +44,29 @@ export default function AddPetModal() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: pet,
+  });
   const onSubmit: SubmitHandler<any> = async (data) => {
-    const imgUrl: string[] = [];
-
-    const images = data.image;
-    console.log(images);
-
-    for (let i = 0; i < images.length; i++) {
-      const formData = new FormData();
-      formData.append("image", images[i]);
-      const res = await uploadImage(formData).unwrap();
-      if (res?.success === true) {
-        imgUrl.push(res?.data?.url);
-      }
-    }
-
-    delete data.image;
-    data.imageUrl = imgUrl;
     data.age = Number(data.age);
 
     const petAddInfo = await addPet(data).unwrap();
     console.log(petAddInfo);
 
     if (petAddInfo?.success === true) {
-      toast.success("Pet added successfully");
+      toast.success("Pet Updated successfully");
       handleClose();
     } else {
       toast.error("Something went wrong");
       handleClose();
     }
   };
+  console.log(pet);
 
   return (
     <React.Fragment>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Button onClick={handleClickOpen}>Add New Pet</Button>
+        <Button onClick={handleClickOpen}>Edit</Button>
         <Dialog
           open={open}
           onClose={handleClose}
@@ -256,32 +241,6 @@ export default function AddPetModal() {
                   {...register("medicalHistory")}
                 />
               </Stack>
-              <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-                onChange={(e: any) => {
-                  if (e.target?.files?.length > 0) {
-                    setIsDisabled(true);
-                  }
-                }}
-                disabled={isDisabled}
-                sx={{
-                  ":disabled": {
-                    backgroundColor: "gray",
-                    color: "white",
-                  },
-                }}
-              >
-                Upload file
-                <VisuallyHiddenInput
-                  multiple
-                  type="file"
-                  {...register("image")}
-                />
-              </Button>
             </Box>
           </DialogContent>
           <DialogActions sx={{ mb: 3 }}>

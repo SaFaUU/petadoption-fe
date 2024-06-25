@@ -1,3 +1,4 @@
+import { tagTypes } from "../tag-types";
 import { baseApi } from "./baseApi";
 
 export const petApi = baseApi.injectEndpoints({
@@ -7,6 +8,7 @@ export const petApi = baseApi.injectEndpoints({
         url: "/pets",
         method: "GET",
       }),
+      providesTags: [tagTypes.pets],
     }),
     addPet: build.mutation({
       query: (pet) => ({
@@ -14,8 +16,17 @@ export const petApi = baseApi.injectEndpoints({
         method: "POST",
         data: pet,
       }),
+      invalidatesTags: [tagTypes.pets],
+    }),
+    deletePet: build.mutation({
+      query: (id) => ({
+        url: `/pets/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.pets],
     }),
   }),
 });
 
-export const { useGetAllPetsQuery, useAddPetMutation } = petApi;
+export const { useGetAllPetsQuery, useAddPetMutation, useDeletePetMutation } =
+  petApi;

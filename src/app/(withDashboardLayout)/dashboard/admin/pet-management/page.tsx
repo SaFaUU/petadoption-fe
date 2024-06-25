@@ -18,76 +18,79 @@ import {
 } from "@/redux/api/userApi";
 import Loader from "@/components/ui/shared/Loader/Loader";
 import AddPetModal from "@/components/ui/Admin/PetManagement/AddPetModal";
+import { useDeletePetMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
+import { toast } from "sonner";
+import EditPetModal from "@/components/ui/Admin/PetManagement/EditPetModal";
 
 const PetManagement = () => {
   const [changeRole] = useChangeRoleMutation();
   const [changeStatus] = useChangeStatusMutation();
+  const [deletePet] = useDeletePetMutation();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 1 },
-    { field: "name", headerName: "Full name", flex: 1 },
-    { field: "email", headerName: "Email", flex: 1 },
     {
-      field: "role",
-      headerName: "Role",
+      field: "name",
+      headerName: "Name",
+      flex: 1,
+    },
+    {
+      field: "breed",
+      headerName: "Breed",
+      flex: 1,
+    },
+    {
+      field: "age",
+      headerName: "Age",
+      flex: 1,
+    },
+    {
+      field: "size",
+      headerName: "Size",
+      flex: 1,
+    },
+    {
+      field: "location",
+      headerName: "Location",
+      flex: 1,
+    },
+    {
+      field: "edit",
+      headerName: "Edit",
       flex: 1,
       renderCell: ({ row }) => {
-        console.log(row);
-        return (
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            defaultValue={row.role}
-            // onChange={handleChange}
-            fullWidth
-            size="small"
-            sx={{
-              maxWidth: "200px",
-            }}
-            onChange={(e) => {
-              changeRole({ id: row.id, role: e.target.value });
-            }}
-          >
-            <MenuItem value={"USER"}>User</MenuItem>
-            <MenuItem value={"ADMIN"}>Admin</MenuItem>
-          </Select>
-        );
+        return <EditPetModal pet={row} />;
       },
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: "delete",
+      headerName: "Delete",
       flex: 1,
       renderCell: ({ row }) => {
-        console.log(row);
         return (
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            defaultValue={row.status}
-            // onChange={handleChange}
-            fullWidth
-            size="small"
-            sx={{
-              maxWidth: "200px",
-            }}
-            onChange={(e) => {
-              changeStatus({ id: row.id, status: e.target.value });
+          <Button
+            variant="contained"
+            color="error"
+            onClick={async () => {
+              const res = await deletePet(row.id);
+              if (res?.data?.success === true) {
+                toast.success("Pet deleted successfully");
+              }
             }}
           >
-            <MenuItem value={"ACTIVE"}>Active</MenuItem>
-            <MenuItem value={"DEACTIVATED"}>Deactive</MenuItem>
-          </Select>
+            Delete
+          </Button>
         );
       },
     },
   ];
 
-  const { data: usersData } = useGetAllUsersQuery({});
-  const rows = usersData?.data;
+  const { data: petData } = useGetAllPetsQuery({});
+  console.log(petData);
+  const rows = petData?.data?.data;
   // console.log(rows);
 
-  if (!usersData) {
+  if (!petData) {
     return <Loader />;
   }
 
@@ -116,6 +119,7 @@ const PetManagement = () => {
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
+        sx={{ minHeight: "150px" }}
         rowHeight={80}
         // pageSizeOptions={[5, 10]}
         // checkboxSelection
