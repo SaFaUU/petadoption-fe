@@ -21,10 +21,10 @@ import AddPetModal from "@/components/ui/Admin/PetManagement/AddPetModal";
 import { useDeletePetMutation, useGetAllPetsQuery } from "@/redux/api/petApi";
 import { toast } from "sonner";
 import EditPetModal from "@/components/ui/Admin/PetManagement/EditPetModal";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material";
 
 const PetManagement = () => {
-  const [changeRole] = useChangeRoleMutation();
-  const [changeStatus] = useChangeStatusMutation();
   const [deletePet] = useDeletePetMutation();
 
   const columns: GridColDef[] = [
@@ -85,7 +85,13 @@ const PetManagement = () => {
     },
   ];
 
-  const { data: petData } = useGetAllPetsQuery({});
+  const [page, setPage] = React.useState(1);
+  const [limit, setLimit] = React.useState(10);
+
+  const { data: petData } = useGetAllPetsQuery({
+    page: page,
+    limit: limit,
+  });
   console.log(petData);
   const rows = petData?.data?.data;
   // console.log(rows);
@@ -114,16 +120,16 @@ const PetManagement = () => {
       <DataGrid
         rows={rows}
         columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        sx={{ minHeight: "150px" }}
-        rowHeight={80}
-        // pageSizeOptions={[5, 10]}
-        // checkboxSelection
+        sx={{ height: `${rows.length ? "auto" : "150px"}` }}
+        hideFooter
       />
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+        <Pagination
+          count={Math.ceil(petData.data?.meta?.total / limit)}
+          page={page}
+          onChange={(e, p) => setPage(p)}
+        />
+      </Box>
     </Box>
   );
 };

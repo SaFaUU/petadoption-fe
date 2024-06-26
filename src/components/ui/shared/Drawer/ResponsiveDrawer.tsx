@@ -17,11 +17,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { drawerItems } from "@/utils/drawerItem";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
+import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const drawerWidth = 240;
 
@@ -31,6 +33,7 @@ export default function ResponsiveDrawer({
   children: React.ReactNode;
 }) {
   const session: any = useSession();
+  const router = useRouter();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
@@ -102,6 +105,28 @@ export default function ResponsiveDrawer({
             </ListItem>
           </Link>
         ))}
+        <Divider />
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            my: 2,
+            px: 2,
+          }}
+        >
+          <Button
+            variant="contained"
+            color="error"
+            sx={{ width: "100%" }}
+            onClick={async () => {
+              signOut();
+            }}
+          >
+            Logout
+          </Button>
+        </Box>
       </List>
       <Divider />
     </div>

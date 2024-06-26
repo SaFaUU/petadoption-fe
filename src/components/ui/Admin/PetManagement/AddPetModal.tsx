@@ -133,7 +133,7 @@ export default function AddPetModal() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={"large"}
+                    defaultValue={"large"}
                     label="Size"
                     fullWidth
                     {...register("size")}
@@ -168,7 +168,7 @@ export default function AddPetModal() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={"EXCELLENT"}
+                    defaultValue={"EXCELLENT"}
                     label="Size"
                     fullWidth
                     {...register("healthStatus")}

@@ -4,9 +4,10 @@ import { baseApi } from "./baseApi";
 export const petApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllPets: build.query({
-      query: () => ({
+      query: (query) => ({
         url: "/pets",
         method: "GET",
+        params: query,
       }),
       providesTags: [tagTypes.pets],
     }),
@@ -14,6 +15,14 @@ export const petApi = baseApi.injectEndpoints({
       query: (pet) => ({
         url: "/pets",
         method: "POST",
+        data: pet,
+      }),
+      invalidatesTags: [tagTypes.pets],
+    }),
+    updatePet: build.mutation({
+      query: (pet) => ({
+        url: `/pets/${pet.id}`,
+        method: "PUT",
         data: pet,
       }),
       invalidatesTags: [tagTypes.pets],
@@ -28,5 +37,9 @@ export const petApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllPetsQuery, useAddPetMutation, useDeletePetMutation } =
-  petApi;
+export const {
+  useGetAllPetsQuery,
+  useAddPetMutation,
+  useUpdatePetMutation,
+  useDeletePetMutation,
+} = petApi;

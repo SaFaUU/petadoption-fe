@@ -11,7 +11,7 @@ import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAuto
 import { styled } from "@mui/system";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useAddPetMutation } from "@/redux/api/petApi";
+import { useAddPetMutation, useUpdatePetMutation } from "@/redux/api/petApi";
 import { useUploadImageMutation } from "@/redux/api/commonApi";
 import { toast } from "sonner";
 
@@ -29,7 +29,7 @@ const VisuallyHiddenInput = styled("input")({
 
 export default function EditPetModal({ pet }: any) {
   const [open, setOpen] = React.useState(false);
-  const [addPet] = useAddPetMutation();
+  const [updatePet] = useUpdatePetMutation();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -50,8 +50,7 @@ export default function EditPetModal({ pet }: any) {
   const onSubmit: SubmitHandler<any> = async (data) => {
     data.age = Number(data.age);
 
-    const petAddInfo = await addPet(data).unwrap();
-    console.log(petAddInfo);
+    const petAddInfo = await updatePet(data).unwrap();
 
     if (petAddInfo?.success === true) {
       toast.success("Pet Updated successfully");
@@ -61,7 +60,6 @@ export default function EditPetModal({ pet }: any) {
       handleClose();
     }
   };
-  console.log(pet);
 
   return (
     <React.Fragment>
@@ -118,7 +116,7 @@ export default function EditPetModal({ pet }: any) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={"large"}
+                    defaultValue={"large"}
                     label="Size"
                     fullWidth
                     {...register("size")}
@@ -153,7 +151,7 @@ export default function EditPetModal({ pet }: any) {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={"EXCELLENT"}
+                    defaultValue={"EXCELLENT"}
                     label="Size"
                     fullWidth
                     {...register("healthStatus")}

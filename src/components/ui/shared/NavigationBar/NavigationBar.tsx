@@ -46,7 +46,7 @@ const settings = [
 ];
 
 function NavigationBar() {
-  const session = useSession();
+  const session: any = useSession();
   const role = session.data?.user?.role;
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
