@@ -1,6 +1,7 @@
 import { env } from "@/config";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { cookies } from "next/headers";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -27,6 +28,7 @@ export const authOptions: NextAuthOptions = {
           credentials: "include",
         });
         const user = await res.json();
+        cookies().set("token", user.data.token);
         // If no error and we have user data, return it
         if (res.ok && user) {
           //

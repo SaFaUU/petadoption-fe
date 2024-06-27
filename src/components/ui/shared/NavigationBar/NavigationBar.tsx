@@ -19,6 +19,7 @@ import Link from "next/link";
 import "./NavigationBar.css";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
+import { deleteCookie } from "@/utils/auth";
 
 const pages = [
   {
@@ -234,6 +235,7 @@ function NavigationBar() {
                   onClick={() => {
                     handleCloseUserMenu();
                     signOut();
+                    deleteCookie();
                   }}
                 >
                   <Typography textAlign="center">Logout</Typography>
