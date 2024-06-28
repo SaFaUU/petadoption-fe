@@ -1,9 +1,11 @@
 "use client";
+import PetCard from "@/components/ui/GetaPet/PetCard";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import {
   Box,
   Button,
   Container,
+  Grid,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -52,6 +54,15 @@ const GetAPet = () => {
           <Button variant="contained">Search</Button>
         </Stack>
       </Box>
+      <Grid my={5} container spacing={2}>
+        {data?.data?.data?.map((pet: any) => {
+          return (
+            <Grid item xs={12} sm={6} md={4}>
+              <PetCard key={pet.id} pet={pet} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </Container>
   );
 };
