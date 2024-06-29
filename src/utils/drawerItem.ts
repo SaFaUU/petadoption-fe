@@ -4,6 +4,7 @@ import { OverridableComponent } from "@mui/material/OverridableComponent";
 import KeyIcon from "@mui/icons-material/Key";
 import GroupIcon from "@mui/icons-material/Group";
 import PetsIcon from "@mui/icons-material/Pets";
+import InventoryIcon from "@mui/icons-material/Inventory";
 
 export interface DrawerItem {
   title: string;
@@ -45,7 +46,11 @@ export const drawerItems = (role: string): DrawerItem[] => {
       );
       break;
     case "USER":
-      roleMenu.push();
+      roleMenu.push({
+        title: "My Adopted Pets",
+        path: `/dashboard/user/adopted-pets`,
+        icon: InventoryIcon,
+      });
       break;
     default:
       break;

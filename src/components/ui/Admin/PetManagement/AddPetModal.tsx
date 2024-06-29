@@ -117,13 +117,13 @@ export default function AddPetModal() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    defaultValue={"dog"}
+                    defaultValue={"DOG"}
                     label="Species"
                     fullWidth
                     {...register("species")}
                   >
-                    <MenuItem value={"dog"}>Dog</MenuItem>
-                    <MenuItem value={"cat"}>Cat</MenuItem>
+                    <MenuItem value={"DOG"}>Dog</MenuItem>
+                    <MenuItem value={"CAT"}>Cat</MenuItem>
                   </Select>
                 </Box>
                 <Box sx={{ flex: 1 }}>
@@ -133,14 +133,14 @@ export default function AddPetModal() {
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    defaultValue={"large"}
+                    defaultValue={"LARGE"}
                     label="Size"
                     fullWidth
                     {...register("size")}
                   >
-                    <MenuItem value={"large"}>Large</MenuItem>
-                    <MenuItem value={"medium"}>Medium</MenuItem>
-                    <MenuItem value={"small"}>Small</MenuItem>
+                    <MenuItem value={"LARGE"}>Large</MenuItem>
+                    <MenuItem value={"MEDIUM"}>Medium</MenuItem>
+                    <MenuItem value={"SMALL"}>Small</MenuItem>
                   </Select>
                 </Box>
               </Stack>

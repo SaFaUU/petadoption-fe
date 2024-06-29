@@ -28,7 +28,6 @@ type Inputs = {
 const Profile = () => {
   const [userState, setUserState] = React.useState<any>({});
   const { data: userInfo } = useGetProfileQuery({});
-  console.log(userInfo?.data);
 
   const [updateProfile] = useUpdateProfileMutation();
   const router = useRouter();
@@ -56,7 +55,6 @@ const Profile = () => {
     };
 
     const res = await updateProfile(userData).unwrap();
-    console.log(res);
 
     if (res?.success === true) {
       toast.success("Profile updated successfully");

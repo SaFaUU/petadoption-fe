@@ -5,8 +5,11 @@ import {
   Box,
   Button,
   Container,
+  FormControl,
   Grid,
+  InputLabel,
   MenuItem,
+  Pagination,
   Select,
   SelectChangeEvent,
   Stack,
@@ -15,14 +18,15 @@ import {
 import React from "react";
 
 const GetAPet = () => {
-  const [age, setAge] = React.useState("");
+  const [size, setSize] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const [species, setSpecies] = React.useState("");
+  const [page, setPage] = React.useState(1);
 
-  const { data } = useGetAllPetsQuery({});
-  console.log(data);
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value);
-  };
+  const { data } = useGetAllPetsQuery({
+    page: page,
+    limit: 6,
+  });
 
   return (
     <Container>
@@ -36,21 +40,46 @@ const GetAPet = () => {
       </Box>
       <Box my={5} sx={{ display: "flex", justifyContent: "center" }}>
         <Stack direction="row" gap={2}>
-          <Select
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={age}
-            label="Age"
-            onChange={handleChange}
-            sx={{ width: "200px" }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
+          <FormControl fullWidth sx={{ minWidth: "100px" }}>
+            <InputLabel id="size-select-label">Size</InputLabel>
+            <Select
+              labelId="size-select-label"
+              id="size-select"
+              value={size}
+              label="Size"
+              onChange={(e) => setSize(e.target.value)}
+            >
+              <MenuItem value={"LARGE"}>Large</MenuItem>
+              <MenuItem value={"MEDIUM"}>Medium</MenuItem>
+              <MenuItem value={"SMALL"}>Small</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ minWidth: "100px" }}>
+            <InputLabel id="gender-select-label">Gender</InputLabel>
+            <Select
+              labelId="gender-select-label"
+              id="gender-select"
+              value={gender}
+              label="Gender"
+              onChange={(e) => setGender(e.target.value)}
+            >
+              <MenuItem value={"MALE"}>Male</MenuItem>
+              <MenuItem value={"FEMALE"}>FEMALE</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth sx={{ minWidth: "100px" }}>
+            <InputLabel id="species-select-label">Species</InputLabel>
+            <Select
+              labelId="species-select-label"
+              id="species-select"
+              value={species}
+              label="Gender"
+              onChange={(e) => setSpecies(e.target.value)}
+            >
+              <MenuItem value={"DOG"}>Dog</MenuItem>
+              <MenuItem value={"CAT"}>CAT</MenuItem>
+            </Select>
+          </FormControl>
           <Button variant="contained">Search</Button>
         </Stack>
       </Box>
@@ -63,6 +92,13 @@ const GetAPet = () => {
           );
         })}
       </Grid>
+      <Box sx={{ display: "flex", justifyContent: "center", my: 2 }}>
+        <Pagination
+          count={Math.ceil(data?.data?.meta?.total / data?.data?.meta?.limit)}
+          page={page}
+          onChange={(e, p) => setPage(p)}
+        />
+      </Box>
     </Container>
   );
 };
