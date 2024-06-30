@@ -14,6 +14,7 @@ import {
   SelectChangeEvent,
   Stack,
   Typography,
+  TextField,
 } from "@mui/material";
 import React from "react";
 
@@ -21,11 +22,17 @@ const GetAPet = () => {
   const [size, setSize] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [species, setSpecies] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState("");
+
   const [page, setPage] = React.useState(1);
 
   const { data } = useGetAllPetsQuery({
     page: page,
     limit: 6,
+    size: size,
+    gender: gender,
+    species: species,
+    searchTerm: searchTerm,
   });
 
   return (
@@ -80,7 +87,21 @@ const GetAPet = () => {
               <MenuItem value={"CAT"}>CAT</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="contained">Search</Button>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { width: "15ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              id="search-basic"
+              label="Search"
+              variant="outlined"
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </Box>
         </Stack>
       </Box>
       <Grid my={5} container spacing={2}>
