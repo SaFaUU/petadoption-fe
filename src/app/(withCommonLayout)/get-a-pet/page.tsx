@@ -22,6 +22,7 @@ const GetAPet = () => {
   const [size, setSize] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [species, setSpecies] = React.useState("");
+  const [age, setAge] = React.useState("");
   const [searchTerm, setSearchTerm] = React.useState("");
 
   const [page, setPage] = React.useState(1);
@@ -33,6 +34,7 @@ const GetAPet = () => {
     gender: gender,
     species: species,
     searchTerm: searchTerm,
+    age: age,
   });
 
   return (
@@ -87,6 +89,23 @@ const GetAPet = () => {
               <MenuItem value={"CAT"}>CAT</MenuItem>
             </Select>
           </FormControl>
+          <Box
+            component="form"
+            sx={{
+              "& > :not(style)": { width: "10ch" },
+            }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              id="age-basic"
+              label="Age"
+              variant="outlined"
+              type="number"
+              InputProps={{ inputProps: { min: 0, max: 100 } }}
+              onChange={(e) => setAge(e.target.value)}
+            />
+          </Box>
           <Box
             component="form"
             sx={{
