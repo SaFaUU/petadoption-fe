@@ -1,5 +1,5 @@
 "use client";
-import PetCard from "@/components/ui/GetaPet/PetCard";
+import PetCard from "@/components/ui/GetaPet/PetCart/PetCard";
 import { useGetAllPetsQuery } from "@/redux/api/petApi";
 import {
   Box,

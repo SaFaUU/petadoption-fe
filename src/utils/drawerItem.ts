@@ -5,6 +5,7 @@ import KeyIcon from "@mui/icons-material/Key";
 import GroupIcon from "@mui/icons-material/Group";
 import PetsIcon from "@mui/icons-material/Pets";
 import InventoryIcon from "@mui/icons-material/Inventory";
+import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 
 export interface DrawerItem {
   title: string;
@@ -42,6 +43,11 @@ export const drawerItems = (role: string): DrawerItem[] => {
           title: "Pet Management",
           path: `/dashboard/admin/pet-management`,
           icon: PetsIcon,
+        },
+        {
+          title: "Adoption Request",
+          path: `/dashboard/admin/adoption-request`,
+          icon: ConfirmationNumberIcon,
         }
       );
       break;

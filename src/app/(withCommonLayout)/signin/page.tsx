@@ -23,7 +23,6 @@ const signin = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const router = useRouter();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
     const res = await signIn("credentials", {
       email: data.email,
       password: data.password,
@@ -33,7 +32,6 @@ const signin = () => {
       toast.success("Logged in successfully");
       router.push("/");
     } else {
-      console.log(res);
       toast.error("Something went wrong");
     }
   };
