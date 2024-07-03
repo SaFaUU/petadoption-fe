@@ -49,6 +49,7 @@ const settings = [
 function NavigationBar() {
   const session: any = useSession();
   const role = session.data?.user?.role;
+  console.log("role: ", role);
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
@@ -219,7 +220,7 @@ function NavigationBar() {
                   <MenuItem key={index} onClick={handleCloseUserMenu}>
                     <Link
                       href={`${setting.path}/${
-                        role ? role?.toLowerCase() : "user"
+                        role == "ADMIN" ? role?.toLowerCase() : "user"
                       }`}
                       style={{
                         textAlign: "center",

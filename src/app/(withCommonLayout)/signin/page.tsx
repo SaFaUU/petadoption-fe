@@ -19,7 +19,7 @@ interface IFormInput {
   password: String;
 }
 
-const signin = () => {
+const SignIn = () => {
   const { register, handleSubmit } = useForm<IFormInput>();
   const router = useRouter();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
@@ -89,7 +89,7 @@ const signin = () => {
                 fontWeight: "bold",
               }}
             >
-              Don't have an account?{" "}
+              Don&apos;t have an account?
               <Link
                 href="/signup"
                 style={{ textDecoration: "none", color: "#FF6500" }}
@@ -104,4 +104,4 @@ const signin = () => {
   );
 };
 
-export default signin;
+export default SignIn;

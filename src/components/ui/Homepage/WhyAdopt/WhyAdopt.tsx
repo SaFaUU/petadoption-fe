@@ -50,10 +50,10 @@ const WhyAdopt = () => {
               }}
             >
               Adopting a pet is a rewarding experience that changes lives. By
-              choosing to adopt, you're giving a homeless animal a second chance
-              at happiness. You'll gain a loyal friend and companion who will
-              bring joy and love into your life. Plus, you'll help reduce the
-              number of animals in shelters and rescues.
+              choosing to adopt, you&apos;re giving a homeless animal a second
+              chance at happiness. You&apos;ll gain a loyal friend and companion
+              who will bring joy and love into your life. Plus, you&apos;ll help
+              reduce the number of animals in shelters and rescues.
             </Typography>
           </Grid>
           <Grid

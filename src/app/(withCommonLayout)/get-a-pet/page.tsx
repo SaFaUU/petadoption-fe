@@ -124,9 +124,9 @@ const GetAPet = () => {
         </Stack>
       </Box>
       <Grid my={5} container spacing={2}>
-        {data?.data?.data?.map((pet: any) => {
+        {data?.data?.data?.map((pet: any, index: number) => {
           return (
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={12} sm={6} md={4} key={index}>
               <PetCard key={pet.id} pet={pet} />
             </Grid>
           );

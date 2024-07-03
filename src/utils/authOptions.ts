@@ -13,7 +13,7 @@ export const authOptions: NextAuthOptions = {
       // e.g. domain, username, password, 2FA token, etc.
       // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {},
-      async authorize(credentials, req) {
+      async authorize(credentials, req): Promise<any> {
         // You need to provide your own logic here that takes the credentials
         // submitted and returns either a object representing a user or value
         // that is false/null if the credentials are invalid.
@@ -28,17 +28,18 @@ export const authOptions: NextAuthOptions = {
           credentials: "include",
         });
         const user = await res.json();
+        console.log(user);
         cookies().set("token", user.data.token);
         // If no error and we have user data, return it
         if (res.ok && user) {
-          //
-          return user.data;
+          return user.data as any;
         }
         // Return null if user data could not be retrieved
-        return null;
+        return null as any;
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     jwt({ token, user }: { token: any; user: any }) {
       if (user) {
@@ -48,25 +49,9 @@ export const authOptions: NextAuthOptions = {
         token.token = user.token || "";
         token.role = user.role || "USER";
       }
-      return token;
+      return token as any;
     },
-    session: async ({
-      session,
-      token,
-      user,
-    }: {
-      session: {
-        user: {
-          id: string;
-          email: string;
-          name: string;
-          token: string;
-          role: string;
-        };
-      };
-      token: any;
-      user: any;
-    }) => {
+    session: async ({ session, token, user }: any) => {
       session.user.id = token.id;
       session.user.email = token.email;
       session.user.name = token.name;

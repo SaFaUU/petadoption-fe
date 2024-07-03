@@ -37,7 +37,7 @@ const SignUp = () => {
     });
 
     if (user.ok) {
-      const res = await signIn("credentials", {
+      const res: any = await signIn("credentials", {
         email: data.email,
         password: data.password,
         redirect: false,

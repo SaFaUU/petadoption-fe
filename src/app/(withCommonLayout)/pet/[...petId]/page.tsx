@@ -15,11 +15,14 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
+import { useMyAdoptionRequestQuery } from "@/redux/api/adoptionRequestApi";
 
 const PetDetails = ({ params }: { params: { petId: string } }) => {
   const [petDetails, setPetDetails] = React.useState<any>();
 
   const { data: petData } = useGetSinglePetQuery(params.petId);
+
+  const { data: myPets } = useMyAdoptionRequestQuery({});
 
   const {
     register,
@@ -34,7 +37,7 @@ const PetDetails = ({ params }: { params: { petId: string } }) => {
   React.useEffect(() => {
     setPetDetails(petData?.data);
     reset(petData?.data);
-  }, [petData?.data]);
+  }, [petData?.data, reset]);
 
   return (
     <Container>
@@ -236,24 +239,27 @@ const PetDetails = ({ params }: { params: { petId: string } }) => {
             },
           }}
         >
-          <Link
-            href={`/adoption-request/${params.petId}`}
-            style={{ width: "100%" }}
+          <Button
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{
+              mt: {
+                sm: 5,
+                md: 0,
+              },
+            }}
+            disabled={myPets?.data?.data?.some(
+              (pet: any) => pet.petId === params.petId[0]
+            )}
           >
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{
-                mt: {
-                  sm: 5,
-                  md: 0,
-                },
-              }}
+            <Link
+              href={`/adoption-request/${params.petId}`}
+              style={{ width: "100%", textDecoration: "none", color: "white" }}
             >
               Adopt Now
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </Grid>
       </Grid>
     </Container>

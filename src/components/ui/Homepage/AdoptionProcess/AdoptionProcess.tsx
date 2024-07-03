@@ -49,8 +49,9 @@ const AdoptionProcess = () => {
         Our Adoption Process
       </Typography>
       <Stack gap={2} sx={{ flexDirection: { sm: "column", lg: "row" } }}>
-        {adoptionProcess.map((item) => (
+        {adoptionProcess.map((item, index) => (
           <Box
+          key={index}
             sx={{
               textAlign: "center",
               backgroundColor: "white",

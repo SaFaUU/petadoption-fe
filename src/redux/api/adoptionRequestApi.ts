@@ -27,6 +27,14 @@ export const adoptionRequestApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: [tagTypes.adoptionRequest],
     }),
+    myAdoptionRequest: build.query({
+      query: (params) => ({
+        url: `/my-adoption-requests`,
+        method: "GET",
+        params: params,
+      }),
+      providesTags: [tagTypes.adoptionRequest],
+    }),
   }),
 });
 
@@ -34,4 +42,5 @@ export const {
   useSubmitAdoptionRequestMutation,
   useGetAllAdoptionRequestsQuery,
   useChangeAdoptionStatusMutation,
+  useMyAdoptionRequestQuery,
 } = adoptionRequestApi;

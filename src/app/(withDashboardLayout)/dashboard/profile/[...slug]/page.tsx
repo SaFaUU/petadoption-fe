@@ -45,7 +45,7 @@ const Profile = () => {
   useEffect(() => {
     setUserState(userInfo?.data);
     reset(userInfo?.data);
-  }, [userInfo?.data]);
+  }, [userInfo?.data, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const userData = {
