@@ -24,10 +24,13 @@ import { toast } from "sonner";
 import EditPetModal from "@/components/ui/Admin/PetManagement/EditPetModal";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material";
-import { useGetAllAdoptionRequestsQuery } from "@/redux/api/adoptionRequestApi";
+import {
+  useChangeAdoptionStatusMutation,
+  useGetAllAdoptionRequestsQuery,
+} from "@/redux/api/adoptionRequestApi";
 
 const AdoptionRequest = () => {
-  const [deletePet] = useDeletePetMutation();
+  const [changeAdoptinStatus] = useChangeAdoptionStatusMutation();
 
   const columns: GridColDef[] = [
     { field: "id", headerName: "ID", flex: 1 },
@@ -60,7 +63,36 @@ const AdoptionRequest = () => {
       headerName: "Status",
       flex: 1,
       renderCell: (params: any) => {
-        return params.row.status;
+        return (
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            defaultValue={params.row.status}
+            // onChange={handleChange}
+            fullWidth
+            size="small"
+            sx={{
+              maxWidth: "200px",
+            }}
+            onChange={async (e) => {
+              const res: any = await changeAdoptinStatus({
+                id: params.row.id,
+                data: {
+                  status: e.target.value,
+                },
+              }).unwrap();
+              if (res.success === true) {
+                toast.success("Status updated successfully");
+              } else {
+                toast.error("Something went wrong");
+              }
+            }}
+          >
+            <MenuItem value={"PENDING"}>Pending</MenuItem>
+            <MenuItem value={"APPROVED"}>Approved</MenuItem>
+            <MenuItem value={"REJECTED"}>Rejected</MenuItem>
+          </Select>
+        );
       },
     },
   ];
@@ -74,7 +106,7 @@ const AdoptionRequest = () => {
   });
 
   const rows = petData?.data?.data;
-  console.log(rows);
+
   //
 
   if (!petData) {

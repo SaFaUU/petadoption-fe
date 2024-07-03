@@ -19,10 +19,19 @@ export const adoptionRequestApi = baseApi.injectEndpoints({
       }),
       providesTags: [tagTypes.adoptionRequest],
     }),
+    changeAdoptionStatus: build.mutation({
+      query: (data) => ({
+        url: `/adoption-requests/${data.id}`,
+        method: "PUT",
+        data: data.data,
+      }),
+      invalidatesTags: [tagTypes.adoptionRequest],
+    }),
   }),
 });
 
 export const {
   useSubmitAdoptionRequestMutation,
   useGetAllAdoptionRequestsQuery,
+  useChangeAdoptionStatusMutation,
 } = adoptionRequestApi;
